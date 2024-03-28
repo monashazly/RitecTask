@@ -5,18 +5,26 @@ type Item = {
 };
 
 function calculateTotals(discount:number , items:Item[] ):{
-   amountBeforeTax:number ,
-   discount:number,
-   amountAfterDiscount:number,
+   totalBeforeTax:number ,
+   totalDiscount:number,
+   totalAfterDiscount:number,
    SST:number,
    totalService:number
 }{
-    
+    let totalBeforeTax = 0;
+    let totalDiscount = 0;
+    let totalAfterDiscount = 0;
+    items.forEach((item:Item)=>{
+        totalBeforeTax = totalBeforeTax + item.price 
+    })
+
+    totalDiscount = (totalBeforeTax * discount)/100
+    totalAfterDiscount = totalBeforeTax - totalDiscount
 
     return {
-        amountBeforeTax: 55,
-       discount:55,
-       amountAfterDiscount:55,
+       totalBeforeTax,
+       totalDiscount,
+       totalAfterDiscount,
        SST:55,
        totalService:55
     }
@@ -44,3 +52,5 @@ var items:Item[] = [
         taxable : true
     }
 ]
+
+console.log(calculateTotals( 20 , items ))
