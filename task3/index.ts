@@ -31,11 +31,11 @@ function calculateTotals(discount:number , items:Item[] ):{
     totalService = totalOfTaxable * 0.1
 
     return {
-       totalBeforeTax : Math.round(totalBeforeTax),
-       totalDiscount : Math.round(totalDiscount),
-       totalAfterDiscount : Math.round(totalAfterDiscount),
-       SST : Math.round(SST),
-       totalService: Math.round(totalService)
+       totalBeforeTax : roundToNearest5Cents(totalBeforeTax),
+       totalDiscount : roundToNearest5Cents(totalDiscount),
+       totalAfterDiscount : roundToNearest5Cents(totalAfterDiscount),
+       SST : roundToNearest5Cents(SST),
+       totalService : roundToNearest5Cents(totalService)
     }
 }
 
@@ -52,14 +52,26 @@ var items:Item[] = [
     },
     {
         name : 'Item3',
-        price : 10.5 ,
+        price : 10.55 ,
         taxable : false
     },
     {
         name : 'Item4',
-        price : 20 ,
+        price : 20.46 ,
         taxable : true
     }
 ]
 
-console.log(calculateTotals( 20 , items ))
+function roundToNearest5Cents(totalAmount:number):number {
+
+    let totalInPiastres:number = totalAmount * 100;
+
+    let roundedTotalInPiastres:number = Math.round(totalInPiastres / 5) * 5;
+
+    let roundedTotalInEGP:number = roundedTotalInPiastres / 100;
+
+    return roundedTotalInEGP;
+}
+
+console.log(calculateTotals(20,items))
+
